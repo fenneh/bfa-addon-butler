@@ -2,10 +2,9 @@
 
 Very crude script to download the latest alpha addons and slam them in your wow beta directory.
 
-
 # How to run
 
-* Download this repo and extract somewhere
+* Download this [repo](https://github.com/fenneh/bfa-addon-butler/archive/master.zip) and extract somewhere
 
 ## Config
 * Modify `Get-WowAlphaAddons.ps1` with notepad or some text editor
@@ -15,7 +14,7 @@ Very crude script to download the latest alpha addons and slam them in your wow 
 ## Running
 
 * Open Powershell
-* Run the script
+* Run the script like below
 ```
 # fench at Sundown in C:\Dev\git\bfa-addon-butler [19:41:22]
 ➜  .\Get-WoWAlphaAddons.ps1
