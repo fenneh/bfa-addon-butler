@@ -1,3 +1,5 @@
+$ProgressPreference = 'SilentlyContinue'
+$startingDir = $pwd
 # Set web calls to use TLS 1.2 // RIP Win 7 .net 4 plebs
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 # For unzipping, not everyone has PS5
@@ -12,6 +14,8 @@ $addons = @("https://git.tukui.org/elvui/elvui/repository/Beta/archive.zip",
 
 $tempDir = "C:\Temp\Addons"
 
+
+
 # Check WoW dir
 if (!(Test-Path $wowDir\WowB.exe)) {
     Write-Warning "WoW Directory not detected"
@@ -22,6 +26,7 @@ if (!(Test-Path $wowDir\WowB.exe)) {
 
 # Update our WowDir to include addon directory
 $wowDir = $wowDir + "\Interface\Addons"
+$wowDir = $wowDir.Replace("\\","\")
 
 Write-Host "[Info] Using $wowDir as your addon diretory. You have 10 seconds to cancel" -ForegroundColor Magenta
 Start-Sleep -s 10 
@@ -62,10 +67,11 @@ foreach ($addon in $addons) {
         foreach ($toc in $tocFiles) {
             $addonFolder = (Get-Item $toc).Directory.FullName
             $addonName = $toc.Split("\")[-1].Replace(".toc","")
-            Write-Host "[Info] Copying $addonName to $wowDir" -ForegroundColor Cyan
+            Write-Host "[Info] Copying $addonName to $wowDir" -ForegroundColor White
             Copy-Item -Path $addonFolder -Destination $wowDir -Force
         }
         Get-ChildItem -Recurse | Remove-Item -Recurse -Force
     }
 }
 
+Push-Location $startingDir
