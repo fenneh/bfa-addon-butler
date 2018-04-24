@@ -1,0 +1,5 @@
+https://git.tukui.org/elvui/elvui/repository/Beta/archive.zip
+https://github.com/BigWigsMods/BigWigs/archive/master.zip
+https://github.com/BigWigsMods/LittleWigs/archive/master.zip
+https://github.com/kesava-wow/kuinameplates2/archive/bfa.zip
+https://github.com/WeakAuras/WeakAuras2/archive/8.0.zip
