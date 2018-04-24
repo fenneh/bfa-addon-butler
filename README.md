@@ -2,14 +2,17 @@
 
 Very crude script to download the latest alpha addons and slam them in your wow beta directory.
 
-# How to run
+# HOW I DO DIS?
 
-* Download this [repo](https://github.com/fenneh/bfa-addon-butler/archive/master.zip) and extract somewhere
+* Download this [repo](https://github.com/fenneh/bfa-addon-butler/archive/master.zip) and extract somewhere.
 
 ## Config
-* Modify `Get-WowAlphaAddons.ps1` with notepad or some text editor
-* If you want more addons update  thje `$addons` array
-* If you want to change your WoW Path update `$wowDir`
+
+* If your Alpha install isn't in the default location then modify `Get-WowAlphaAddons.ps1` with notepad or some text editor and update the `$wowDir` variable at the top **OR** run the script and you'll be prompted to enter the location of your WoW install.
+
+## Adding/Changing addons
+
+* Update `addon-urls.txt` with the links to the zip files that you want
 
 ## Running
 

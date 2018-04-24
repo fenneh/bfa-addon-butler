@@ -6,15 +6,8 @@ $startingDir = $pwd
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 # Wow dir to move junk to 
 $wowDir = "C:\Program Files (x86)\World of Warcraft Beta\"
-$addons = @("https://git.tukui.org/elvui/elvui/repository/Beta/archive.zip",
-            "https://github.com/BigWigsMods/BigWigs/archive/master.zip",
-            "https://github.com/BigWigsMods/LittleWigs/archive/master.zip",
-            "https://github.com/kesava-wow/kuinameplates2/archive/bfa.zip",
-            "https://github.com/WeakAuras/WeakAuras2/archive/8.0.zip")
-
+$addons = Get-Content $PSScriptRoot\addon-urls.txt
 $tempDir = "C:\Temp\Addons"
-
-
 
 # Check WoW dir
 if (!(Test-Path $wowDir\WowB.exe)) {
@@ -28,7 +21,7 @@ if (!(Test-Path $wowDir\WowB.exe)) {
 $wowDir = $wowDir + "\Interface\Addons"
 $wowDir = $wowDir.Replace("\\","\")
 
-Write-Host "[Info] Using $wowDir as your addon diretory. You have 10 seconds to cancel" -ForegroundColor Magenta
+Write-Host "[Info] Using $wowDir as your addon directory. You have 10 seconds to cancel" -ForegroundColor Magenta
 Start-Sleep -s 10 
 
 # Helper function
