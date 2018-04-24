@@ -46,11 +46,11 @@ foreach ($addon in $addons) {
     Invoke-WebRequest $addon -OutFile ($addon).Split("/")[-1]
     $zipFile = Get-ChildItem | Where-Object {$_.Extension -like ".zip"} | Select-Object -expand Name
     Expand-Addon -zipfile "$tempDir\$zipFile" -outpath "$tempDir"
-    $addonFolders = Get-ChildItem | Where-Object {$_.PSIsContainer} | Select-Object -expand FullName
+    $addonFolders = Get-ChildItem $tempDir | Where-Object {$_.PSIsContainer} | Select-Object -expand FullName
     # Get all the folders, if there's a toc in one of them then it must be the root one
     # If there isn't, then the toc must be 1 level deeper
     foreach ($folder in $addonFolders) {
-       $tocFiles = Get-ChildItem -Depth 1 | Where-Object {$_.Extension -like ".toc"} | Select-Object -expand FullName
+       $tocFiles = Get-ChildItem $tempDir -Depth 1 | Where-Object {$_.Extension -like ".toc"} | Select-Object -expand FullName
        if (!($tocFiles)) {
             Push-Location $folder
             $tocFiles = Get-ChildItem -Depth 1 | Where-Object {$_.Extension -like ".toc"} | Select-Object -expand FullName
@@ -61,9 +61,11 @@ foreach ($addon in $addons) {
             $addonFolder = (Get-Item $toc).Directory.FullName
             $addonName = $toc.Split("\")[-1].Replace(".toc","")
             Write-Host "[Info] Copying $addonName to $wowDir" -ForegroundColor White
-            Copy-Item -Path $addonFolder -Destination $wowDir -Force
+            Copy-Item -Path $addonFolder -Recurse -Destination $wowDir -Force
         }
-        Get-ChildItem -Recurse | Remove-Item -Recurse -Force
+        Get-ChildItem $addonFolder -Recurse | Remove-Item -Recurse -Force
+        Get-Item $folder | Remove-Item -Recurse -Force
+        Get-Item $zipFile | Remove-Item -Force
     }
 }
 
