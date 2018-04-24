@@ -58,10 +58,14 @@ foreach ($addon in $addons) {
        }
     
         foreach ($toc in $tocFiles) {
-            $addonFolder = (Get-Item $toc).Directory.FullName
+            $addonFullFolder = (Get-Item $toc).Directory.FullName
+            $addonDir = (Get-Item $toc).Directory.Name
             $addonName = $toc.Split("\")[-1].Replace(".toc","")
             Write-Host "[Info] Copying $addonName to $wowDir" -ForegroundColor White
-            Copy-Item -Path $addonFolder -Recurse -Destination $wowDir -Force
+            Copy-Item -Path $addonFullFolder -Recurse -Destination $wowDir -Force
+            if ($addonName -notlike $addonDir) {
+                Rename-Item -Path "$wowDir\$addonDir" -NewName "$wowDir\$addonName"
+            }
         }
         Get-ChildItem $addonFolder -Recurse | Remove-Item -Recurse -Force
         Get-Item $folder | Remove-Item -Recurse -Force
