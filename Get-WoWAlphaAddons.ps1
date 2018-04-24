@@ -3,7 +3,7 @@
 # For unzipping, not everyone has PS5
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 # Wow dir to move junk to 
-$wowDir = "C:\Program Files (x86)\World of Warcraft Beta\Interface\Addons"
+$wowDir = "C:\Program Files (x86)\World of Warcraft Beta\"
 $addons = @("https://git.tukui.org/elvui/elvui/repository/Beta/archive.zip",
             "https://github.com/BigWigsMods/BigWigs/archive/master.zip",
             "https://github.com/BigWigsMods/LittleWigs/archive/master.zip",
@@ -13,10 +13,18 @@ $addons = @("https://git.tukui.org/elvui/elvui/repository/Beta/archive.zip",
 $tempDir = "C:\Temp\Addons"
 
 # Check WoW dir
-if (!(Test-Path $wowDir)) {
+if (!(Test-Path $wowDir\WowB.exe)) {
     Write-Warning "WoW Directory not detected"
-    break
+    do {
+        $wowDir = Read-Host "Where is your WoW BfA Alpha Installed? P.S You can update the script to prevent this"
+    } until (Test-Path $wowDir\WowB.exe)
 }
+
+# Update our WowDir to include addon directory
+$wowDir = $wowDir + "\Interface\Addons"
+
+Write-Host "[Info] Using $wowDir as your addon diretory. You have 10 seconds to cancel" -ForegroundColor Magenta
+Start-Sleep -s 10 
 
 # Helper function
 function Expand-Addon {
