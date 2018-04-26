@@ -34,10 +34,18 @@ function Expand-Addon {
     [System.IO.Compression.ZipFile]::ExtractToDirectory($zipfile, $outpath)
 }
 
-# Create our temp directory
+# Create our temp directories
 if (!(Test-Path $tempDir)) {
     mkdir $tempDir | Out-Null
-}  
+
+}
+
+if (!(Test-Path $tempDir\butler)) {
+    mkdir $tempDir\butler | Out-Null
+}
+
+# Ceate an additional tempDir just incase the user has set tempDir to something which contains important files -.-
+$tempDir = $tempDir + "\butler"
 
 # Download our addons
 foreach ($addon in $addons) {
@@ -62,14 +70,15 @@ foreach ($addon in $addons) {
             $addonDir = (Get-Item $toc).Directory.Name
             $addonName = $toc.Split("\")[-1].Replace(".toc","")
             Write-Host "[Info] Copying $addonName to $wowDir" -ForegroundColor White
-            Copy-Item -Path $addonFullFolder -Recurse -Destination $wowDir -Force
             if ($addonName -notlike $addonDir) {
-                Rename-Item -Path "$wowDir\$addonDir" -NewName "$wowDir\$addonName"
+                # Rename the folder before copying as you can't rename to something which already exists e.g. an installed addon.
+                Rename-Item -Path "$tempDir\$addonDir" -NewName "$tempDir\$addonName" -Force
+                Copy-Item -Path "$tempDir\$addonName" -Recurse -Destination $wowDir -Force
+            } else {
+                Copy-Item -Path $addonFullFolder -Recurse -Destination $wowDir -Force
             }
         }
-        Get-ChildItem $addonFolder -Recurse | Remove-Item -Recurse -Force
-        Get-Item $folder | Remove-Item -Recurse -Force
-        Get-Item $zipFile | Remove-Item -Force
+        Get-ChildItem $tempDir -Recurse | Remove-Item -Recurse -Force
     }
 }
 
