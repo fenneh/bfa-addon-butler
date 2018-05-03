@@ -64,24 +64,24 @@ foreach ($addon in $addons) {
             Push-Location $folder
             $tocFiles = Get-ChildItem -Depth 1 | Where-Object {$_.Extension -like ".toc"} | Select-Object -expand FullName
             Pop-Location
-       }
-    # Loop around our toc files to get the true addon dirs and copy them across to Wow Dir
-    foreach ($toc in $tocFiles) {
-        $addonFullFolder = (Get-Item $toc).Directory.FullName
-        $addonDir = (Get-Item $toc).Directory.Name
-        $addonName = $toc.Split("\")[-1].Replace(".toc","")
-        Write-Host "[Info] Copying $addonName to $wowDir" -ForegroundColor White
-        if ($addonName -notlike $addonDir) {
-            # Rename the folder before copying as you can't rename to something which already exists e.g. an installed addon.
-            Rename-Item -Path "$tempDir\$addonDir" -NewName "$tempDir\$addonName" -Force
-            Copy-Item -Path "$tempDir\$addonName" -Recurse -Destination $wowDir -Force
-        } else {
-            Copy-Item -Path $addonFullFolder -Recurse -Destination $wowDir -Force
         }
-    }
-       
-    Write-Host "[Info] Cleaning up $tempDir\$addonName" -ForegroundColor Green
-    Get-ChildItem $tempDir\$addonName -Recurse | Remove-Item -Recurse -Force
+        # Loop around our toc files to get the true addon dirs and copy them across to Wow Dir
+        foreach ($toc in $tocFiles) {
+            $addonFullFolder = (Get-Item $toc).Directory.FullName
+            $addonDir = (Get-Item $toc).Directory.Name
+            $addonName = $toc.Split("\")[-1].Replace(".toc","")
+            Write-Host "[Info] Copying $addonName to $wowDir" -ForegroundColor White
+            if ($addonName -notlike $addonDir) {
+                # Rename the folder before copying as you can't rename to something which already exists e.g. an installed addon.
+                Rename-Item -Path "$tempDir\$addonDir" -NewName "$tempDir\$addonName" -Force
+                Copy-Item -Path "$tempDir\$addonName" -Recurse -Destination $wowDir -Force
+            } else {
+                Copy-Item -Path $addonFullFolder -Recurse -Destination $wowDir -Force
+            }
+            Write-Host "[Info] Cleaning up $tempDir\$addonName" -ForegroundColor Green
+            Get-ChildItem $tempDir\$addonName -Recurse | Remove-Item -Recurse -Force
+            Get-ChildItem $tempDir | Where-Object {$_.Extension -like ".zip"} | Remove-Item -Recurse -Force
+        }
     }
 }
 
