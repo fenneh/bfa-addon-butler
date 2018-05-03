@@ -78,7 +78,7 @@ foreach ($addon in $addons) {
             } else {
                 Copy-Item -Path $addonFullFolder -Recurse -Destination $wowDir -Force
             }
-            Write-Host "[Info] Cleaning up $tempDir\$addonName" -ForegroundColor Green
+            Write-Debug "[Info] Cleaning up $tempDir\$addonName"
             Get-ChildItem $tempDir\$addonName -Recurse | Remove-Item -Recurse -Force
             Get-ChildItem $tempDir | Where-Object {$_.Extension -like ".zip"} | Remove-Item -Recurse -Force
         }
