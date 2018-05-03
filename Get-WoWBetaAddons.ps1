@@ -58,28 +58,35 @@ foreach ($addon in $addons) {
     # Get all the folders, if there's a toc in one of them then it must be the root one
     # If there isn't, then the toc must be 1 level deeper
     foreach ($folder in $addonFolders) {
-       $tocFiles = Get-ChildItem $tempDir -Depth 1 | Where-Object {$_.Extension -like ".toc"} | Select-Object -expand FullName
-       if (!($tocFiles)) {
+        $tocFiles = Get-ChildItem $tempDir -Depth 1 | Where-Object {$_.Extension -like ".toc"} | Select-Object -expand FullName
+        # If no tocfiles found, going to assume the addon is within a folder
+        if (!($tocFiles)) {
             Push-Location $folder
             $tocFiles = Get-ChildItem -Depth 1 | Where-Object {$_.Extension -like ".toc"} | Select-Object -expand FullName
             Pop-Location
        }
-    
-        foreach ($toc in $tocFiles) {
-            $addonFullFolder = (Get-Item $toc).Directory.FullName
-            $addonDir = (Get-Item $toc).Directory.Name
-            $addonName = $toc.Split("\")[-1].Replace(".toc","")
-            Write-Host "[Info] Copying $addonName to $wowDir" -ForegroundColor White
-            if ($addonName -notlike $addonDir) {
-                # Rename the folder before copying as you can't rename to something which already exists e.g. an installed addon.
-                Rename-Item -Path "$tempDir\$addonDir" -NewName "$tempDir\$addonName" -Force
-                Copy-Item -Path "$tempDir\$addonName" -Recurse -Destination $wowDir -Force
-            } else {
-                Copy-Item -Path $addonFullFolder -Recurse -Destination $wowDir -Force
-            }
+    # Loop around our toc files to get the true addon dirs and copy them across to Wow Dir
+    foreach ($toc in $tocFiles) {
+        $addonFullFolder = (Get-Item $toc).Directory.FullName
+        $addonDir = (Get-Item $toc).Directory.Name
+        $addonName = $toc.Split("\")[-1].Replace(".toc","")
+        Write-Host "[Info] Copying $addonName to $wowDir" -ForegroundColor White
+        if ($addonName -notlike $addonDir) {
+            # Rename the folder before copying as you can't rename to something which already exists e.g. an installed addon.
+            Rename-Item -Path "$tempDir\$addonDir" -NewName "$tempDir\$addonName" -Force
+            Copy-Item -Path "$tempDir\$addonName" -Recurse -Destination $wowDir -Force
+        } else {
+            Copy-Item -Path $addonFullFolder -Recurse -Destination $wowDir -Force
         }
-        Get-ChildItem $tempDir -Recurse | Remove-Item -Recurse -Force
+    }
+       
+    Write-Host "[Info] Cleaning up $tempDir\$addonName" -ForegroundColor Green
+    Get-ChildItem $tempDir\$addonName -Recurse | Remove-Item -Recurse -Force
     }
 }
 
+Write-Host "[Info] Cleaning up $tempDir" -ForegroundColor Green
+Write-Host "**** LA FIN ****" -ForegroundColor Cyan
+Get-ChildItem $tempDir -Recurse | Remove-Item -Recurse -Force
+# Return to starting location
 Push-Location $startingDir
