@@ -37,7 +37,6 @@ function Expand-Addon {
 # Create our temp directories
 if (!(Test-Path $tempDir)) {
     mkdir $tempDir | Out-Null
-
 }
 
 if (!(Test-Path $tempDir\butler)) {
@@ -46,6 +45,9 @@ if (!(Test-Path $tempDir\butler)) {
 
 # Ceate an additional tempDir just incase the user has set tempDir to something which contains important files -.-
 $tempDir = $tempDir + "\butler"
+
+# Clear the temp dir... before we start.
+Get-ChildItem $tempDir -Recurse | Remove-Item -Recurse -Force
 
 # Download our addons
 foreach ($addon in $addons) {
