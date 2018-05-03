@@ -8,7 +8,7 @@ Very crude script to download the latest alpha addons and slam them in your wow 
 
 ## Config
 
-* If your Alpha install isn't in the default location then modify `Get-WowAlphaAddons.ps1` with notepad or some text editor and update the `$wowDir` variable at the top **OR** run the script and you'll be prompted to enter the location of your WoW install.
+* If your Beta install isn't in the default location then modify `Get-WowBetaAddons.ps1` with notepad or some text editor and update the `$wowDir` variable at the top **OR** run the script and you'll be prompted to enter the location of your WoW install.
 
 ## Adding/Changing addons
 
@@ -20,7 +20,7 @@ Very crude script to download the latest alpha addons and slam them in your wow 
 * Run the script like below
 ```
 # fench at Sundown in C:\Dev\git\bfa-addon-butler [19:41:22]
-➜  .\Get-WoWAlphaAddons.ps1
+➜  .\Get-WoWABetaAddons.ps1
 [Info] Downloading https://git.tukui.org/elvui/elvui/repository/Beta/archive.zip
 [Info] Extracting C:\Temp\Addons\archive.zip to C:\Temp\Addons
 [Info] Copying ElvUI to C:\Program Files (x86)\World of Warcraft Beta\Interface\Addons
