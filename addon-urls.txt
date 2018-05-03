@@ -3,4 +3,4 @@ https://github.com/BigWigsMods/BigWigs/archive/master.zip
 https://github.com/BigWigsMods/LittleWigs/archive/master.zip
 https://github.com/kesava-wow/kuinameplates2/archive/bfa.zip
 https://github.com/WeakAuras/WeakAuras2/archive/8.0.zip
-https://www.wowinterface.com/downloads/dl23056/Details-ALPHA-8.0.1.v5.zip
+https://www.wowinterface.com/downloads/dl23056/Details-ALPHA-8.0.1.v10.zip
