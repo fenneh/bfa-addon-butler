@@ -1,5 +1,5 @@
 https://git.tukui.org/elvui/elvui/repository/Beta/archive.zip
-https://github.com/BigWigsMods/BigWigs/releases/download/v97.4/BigWigs-v97.4.zip
+https://github.com/BigWigsMods/BigWigs/releases/download/v97.5/BigWigs-v97.5.zip
 https://github.com/BigWigsMods/LittleWigs/releases/download/v7.3.29/LittleWigs-v7.3.29.zip
 https://github.com/kesava-wow/kuinameplates2/archive/beta-beaming-snake-caring-puppy.zip
 https://github.com/WeakAuras/WeakAuras2/releases/download/8.0-beta6/WeakAuras-8.0-beta6.zip
