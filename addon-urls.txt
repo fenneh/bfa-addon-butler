@@ -1,6 +1,6 @@
 https://git.tukui.org/elvui/elvui/repository/Beta/archive.zip
-https://github.com/BigWigsMods/BigWigs/releases/download/v97.5/BigWigs-v97.5.zip
-https://github.com/BigWigsMods/LittleWigs/releases/download/v7.3.29/LittleWigs-v7.3.29.zip
-https://github.com/kesava-wow/kuinameplates2/archive/beta-beaming-snake-caring-puppy.zip
-https://github.com/WeakAuras/WeakAuras2/releases/download/8.0-beta6/WeakAuras-8.0-beta6.zip
-https://www.wowinterface.com/downloads/dl23056/Details-ALPHA-8.0.1.v13.zip
+https://github.com/BigWigsMods/BigWigs/releases/download/v98/BigWigs-v98.zip
+https://github.com/BigWigsMods/LittleWigs/releases/download/v7.3.30/LittleWigs-v7.3.30.zip
+https://github.com/kesava-wow/kuinameplates2/archive/beta-hidden-beard-bathing-dik-dik.zip
+https://github.com/WeakAuras/WeakAuras2/releases/download/8.0-beta8/WeakAuras-8.0-beta8.zip
+https://www.wowinterface.com/downloads/dl23056/Details-ALPHA-8.0.1.v16.zip
